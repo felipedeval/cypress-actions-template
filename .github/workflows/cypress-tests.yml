@@ -10,17 +10,13 @@ on:
 jobs:  
   cypress-chrome-tests: 
     runs-on: ubuntu-latest
-    container:
-      options: --user 1001
     steps: 
       - name: Get code
         uses: actions/checkout@v3.5.2
         
+      - name: Install dependencies
+        run: npm install
+        
       - name: Run E2E tests
-        with: 
-          install-command: npm install
-          browser: chrome
-          record: true
-          group: UI Chrome
-          spec: ${{ github.event.inputs.cli }}
+        run: ${{ github.event.inputs.cli }}
         
